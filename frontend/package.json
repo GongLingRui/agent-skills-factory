@@ -1,0 +1,42 @@
+{
+  "name": "agent-factory-widget",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "lint": "eslint . --report-unused-disable-directives --max-warnings 0"
+  },
+  "dependencies": {
+    "dexie": "^4.0",
+    "react": "^18.3",
+    "react-dom": "^18.3",
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^6.27",
+    "remark-gfm": "^4.0.1",
+    "zustand": "^5.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@tailwindcss/typography": "^0.5.19",
+    "@types/react": "^18.3",
+    "@types/react-dom": "^18.3",
+    "@vitejs/plugin-react": "^4.3",
+    "@playwright/test": "^1.52.0",
+    "autoprefixer": "^10.4",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "postcss": "^8.4",
+    "tailwindcss": "^3.4",
+    "typescript": "^5.6",
+    "typescript-eslint": "^8.59.2",
+    "vite": "^6.0",
+    "vitest": "^3.0"
+  }
+}

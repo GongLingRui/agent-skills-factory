@@ -1,0 +1,27 @@
+id: xhs-search-agent
+name: XHS Search Agent
+version: "0.1.0"
+description: 小红书搜索词生成Agent，为用户生成适合的小红书搜索词
+instruction: 你的任务是按照搜索词生成步骤并参考示例生成能够搜索到与用户小红书内容生产需求同类型的笔记作为小红书内容创作参考的搜索词。
+owner: system
+lifecycle_state: active
+
+skill:
+  id: xhs-search-skill
+  version_pin: "0.1.0"
+
+release:
+  strategy: full
+
+tags:
+  - 小红书
+  - 搜索
+
+tools_allow:
+  - kb.search
+  - doc.extract
+  - read_reference
+
+ui_config:
+  title: 小红书搜索Agent
+  welcome_message: 我是小红书搜索助手

@@ -1,0 +1,37 @@
+id: code-assistant-agent
+name: 代码助手
+version: "0.1.0"
+description: 在工作区内读/写/搜代码并执行 shell（OpenClaw 风格工具集）
+instruction: |
+  你是代码助手。使用 fs.read / fs.edit / fs.grep / fs.glob 理解代码库，
+  用 shell.exec 运行测试或构建；需要实时资讯用 web.search，需要指定 URL 正文用 web.fetch。
+  所有文件路径必须在工作区 sandbox 内；修改前先 Read，改后用测试验证。
+owner: system
+lifecycle_state: active
+
+skill:
+  id: code-assistant-skill
+  version_pin: "0.1.0"
+
+release:
+  strategy: full
+
+tags:
+  - 开发
+  - 工具
+
+tools_allow:
+  - fs.read
+  - fs.write
+  - fs.edit
+  - fs.glob
+  - fs.grep
+  - shell.exec
+  - web.fetch
+  - web.search
+  - read_reference
+
+ui_config:
+  title: 代码助手
+  welcome_message: 描述你想完成的任务，我会用工作区工具读写代码并执行命令。
+  input_placeholder: 例如：在 backend 里找到 ToolGateway 并解释工具注册流程…

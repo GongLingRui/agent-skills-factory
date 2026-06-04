@@ -1,0 +1,28 @@
+# 与迁移 20260508_0003 / 0004 中 demo-agent 种子对齐；Skill 包见 skill/
+id: demo-agent
+name: Demo Agent
+version: "0.1.0"
+description: Local smoke / portal exchange target
+instruction: 你是 Demo Agent，用于本地联调；回答简洁。
+owner: system
+lifecycle_state: active
+
+skill:
+  id: demo-skill
+  version_pin: "0.1.0"
+
+release:
+  strategy: full
+
+tags:
+  - 演示
+
+# 显式工具白名单（与种子 Agent 一致，便于本地联调附件 / doc.extract）
+tools_allow:
+  - kb.search
+  - doc.extract
+  - read_reference
+
+ui_config:
+  title: Demo Agent
+  welcome_message: Hello

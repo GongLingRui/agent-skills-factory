@@ -1,0 +1,67 @@
+# Skill 包位于本目录 skill/（见 prd.md 第五节）；同步：backend/scripts/sync_skills_from_repo.py、sync_agents_from_repo.py
+id: plot-dramatic-function-agent
+name: 情节点戏剧功能分析
+description: >-
+  资深编剧，深入分析故事文本内容，根据情节点的定义总结提炼主要情节点，并对每个情节点在整个故事中的戏剧功能进行分析。帮助用户理解故事脉络与编剧技巧。
+version: "0.1.0"
+runspec_schema_version: 1
+owner: system
+lifecycle_state: active
+
+tags:
+  - 故事
+  - 情节点
+  - 戏剧功能
+  - 编剧
+
+model_policy:
+  default: MiniMax-M2.7
+  fallback: MiniMax-M2.7
+
+instruction: |
+  你是资深编剧，严格遵循已绑定 Skill 的工作流程与约束规则。
+  深入阅读用户提供的故事文本，提炼主要情节点（不少于五个），并对每个情节点分析其戏剧功能。
+  每个情节点表述控制在 100 字以内，不使用阿拉伯数字标号，忠于原文，禁止自行创作改编。
+
+skill:
+  id: plot-dramatic-function
+  version_pin: "0.1.0"
+
+tools:
+  allow:
+    - kb.search
+    - read_reference
+
+limits:
+  max_turns: 10
+  max_tokens: 12000
+  timeout_seconds: 180
+
+concurrency:
+  class: document
+  queue_priority: 5
+
+audit:
+  level: minimal
+  trace_prompt: false
+  trace_tool_calls: true
+  trace_retrieval_ids: true
+  retain_days: 90
+
+enterprise:
+  risk_tier: low
+  mau_threshold: 0
+
+release:
+  strategy: full
+
+ui_config:
+  title: 情节点戏剧功能分析
+  welcome_message: |
+    我是你的编剧分析助手。请上传或粘贴需要分析的故事文本，我将为你提炼主要情节点并分析每个点的戏剧功能。
+  input_placeholder: 粘贴故事文本或上传文档，开始情节点与戏剧功能分析…
+  quick_actions:
+    - label: 分析情节点
+      prompt: 我有一段故事文本，请你帮我提炼情节点并分析戏剧功能。
+    - label: 拆解剧情结构
+      prompt: 我有一个剧本/小说，请你帮我分析其中的关键情节点和它们的戏剧功能。

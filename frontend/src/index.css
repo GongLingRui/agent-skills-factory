@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --widget-bg: #f1f5f9;
+  --widget-surface: #ffffff;
+}
+
+.dark {
+  --widget-bg: #0f172a;
+  --widget-surface: #1e293b;
+}
+
+body {
+  @apply antialiased;
+  background: var(--widget-bg);
+  color: #0f172a;
+  font-family: ui-sans-serif, system-ui, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+}
+
+.dark body {
+  color: #f1f5f9;
+}
+
+.safe-pb {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}

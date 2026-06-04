@@ -1,0 +1,27 @@
+id: facts-agent
+name: Facts Agent
+version: "0.1.0"
+description: 事实收集Agent，使用搜索工具收集客观事实、数据、案例等信息
+instruction: 提取、整理或生成与话题相关的客观事实、数据、案例等信息。
+owner: system
+lifecycle_state: active
+
+skill:
+  id: facts-skill
+  version_pin: "0.1.0"
+
+release:
+  strategy: full
+
+tags:
+  - 事实收集
+  - 搜索
+
+tools_allow:
+  - kb.search
+  - doc.extract
+  - read_reference
+
+ui_config:
+  title: Facts Agent
+  welcome_message: 我是事实收集助手

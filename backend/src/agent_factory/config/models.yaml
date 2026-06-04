@@ -1,0 +1,70 @@
+# Model Gateway configuration (docs/10-model-gateway.md)
+# P0: local OpenAI-compatible endpoints
+#
+# model_aliases: optional shortcuts (like Claude Code /model) → logical keys
+# under ``models``. HTTP ``model`` field uses ``api_model`` when set, else the
+# logical key (many OpenAI-compatible vendors accept the same string).
+
+model_aliases:
+  default: MiniMax-M2.7
+  minimax: MiniMax-M2.7
+
+models:
+  MiniMax-M2.7:
+    provider: minimax
+    # 若平台要求的 model id 与逻辑名不同，填 api_model；否则省略。
+    # api_model: "MiniMax-Text-01"
+    # OpenAI 兼容 Chat Completions：
+    # - 国内开放平台密钥：https://api.minimaxi.com/v1（platform.minimaxi.com）
+    # - 国际站密钥：https://api.minimax.io/v1（platform.minimax.io）
+    endpoint: "https://api.minimaxi.com/v1"
+    api_key: "${MINIMAX_API_KEY}"
+    max_tokens: 32768
+    rpm: 60
+    tpm: 100000
+    health_endpoint: ""
+    fallback_order: []
+
+  qwen3-32b:
+    provider: local
+    endpoint: "http://localhost:8000/v1"
+    api_key: "${QWEN3_32B_API_KEY:-}"
+    max_tokens: 32768
+    rpm: 100
+    tpm: 100000
+    health_endpoint: "http://localhost:8000/health"
+    fallback_order:
+      - qwen3-14b
+      - qwen3-8b
+      - MiniMax-M2.7
+
+  qwen3-14b:
+    provider: local
+    endpoint: "http://localhost:8001/v1"
+    api_key: "${QWEN3_14B_API_KEY:-}"
+    max_tokens: 32768
+    rpm: 200
+    tpm: 200000
+    health_endpoint: "http://localhost:8001/health"
+    fallback_order:
+      - qwen3-8b
+      - MiniMax-M2.7
+
+  qwen3-8b:
+    provider: local
+    endpoint: "http://localhost:8002/v1"
+    api_key: "${QWEN3_8B_API_KEY:-}"
+    max_tokens: 32768
+    rpm: 500
+    tpm: 500000
+    health_endpoint: "http://localhost:8002/health"
+    fallback_order:
+      - MiniMax-M2.7
+
+defaults:
+  model: MiniMax-M2.7
+  fallback_model: MiniMax-M2.7
+  low_cost_model: MiniMax-M2.7
+  max_turns: 6
+  timeout_seconds: 90
+  max_tokens: 8000

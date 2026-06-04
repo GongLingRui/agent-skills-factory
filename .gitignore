@@ -1,0 +1,73 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+.env
+.env.local
+.env.*.local
+*.egg-info/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+coverage.xml
+node_modules/
+*.log
+.idea/
+.vscode/
+.claude/
+.cursor/
+third_party/
+
+# 数据库
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+
+# Alembic 迁移
+alembic/versions/*.py
+!alembic/versions/.gitkeep
+
+# Backend
+backend/__pycache__/
+backend/*.pyc
+backend/.pytest_cache/
+backend/.mypy_cache/
+backend/dist/
+backend/build/
+backend/*.egg-info/
+
+# Frontend
+frontend/dist/
+frontend/.vite/
+frontend/.output/
+frontend/.nuxt/
+frontend/.vercel/
+frontend/.next/
+frontend/coverage/
+
+# pnpm
+pnpm-lock.yaml
+
+# Docker
+docker-compose.override.yml
+.docker/
+
+# Logs
+*.log
+logs/
+
+# Temp files
+*.tmp
+*.temp
+.cache/

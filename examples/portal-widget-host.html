@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>Portal 宿主页示例 — 打开 Chat Widget</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!--
+    说明（对齐 plan §4.9、prd 门户集成）：
+    - 门户已完成 SSO；浏览器持有门户会话。
+    - 后端 POST /api/v1/auth/exchange 使用门户 JWT 换取短效 token；
+      Widget 加载后用 POST /api/v1/auth/session 换 HttpOnly Cookie。
+    - 请将下面占位 URL、agent_id 替换为部署真实值。
+  -->
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 48rem; margin: 2rem auto; padding: 0 1rem; }
+    code { background: #f4f4f4; padding: 0.15rem 0.35rem; border-radius: 4px; }
+    button { padding: 0.5rem 1rem; cursor: pointer; margin-right: 0.5rem; }
+  </style>
+</head>
+<body>
+  <h1>门户嵌入 Agent Widget（演示）</h1>
+  <p>
+    点击下方按钮在新窗口打开 Widget 子域页面。URL 应携带一次性短 JWT（由门户后端调用
+    <code>POST /api/v1/auth/exchange</code> 生成），或由前端先请求 exchange 再跳转。
+  </p>
+
+  <p>
+    <label>Widget 基地址（含协议与端口）</label><br />
+    <input id="widgetBase" type="text" style="width:100%;max-width:36rem"
+      value="http://localhost:5173" placeholder="https://widget.company.com" />
+  </p>
+  <p>
+    <label>Agent ID</label><br />
+    <input id="agentId" type="text" style="width:100%;max-width:24rem"
+      value="demo-agent" />
+  </p>
+  <p>
+    <label>短 JWT（exchange 返回的 token；演示可粘贴）</label><br />
+    <input id="shortJwt" type="text" style="width:100%;max-width:42rem"
+      placeholder="eyJhbGciOi..." />
+  </p>
+
+  <p>
+    <button type="button" id="btnOpen">window.open 打开 Widget</button>
+    <button type="button" id="btnAssign">仅组装 URL（控制台输出）</button>
+  </p>
+
+  <pre id="out" style="background:#f8f8f8;padding:1rem;overflow:auto;"></pre>
+
+  <script>
+    function buildWidgetUrl() {
+      var base = document.getElementById('widgetBase').value.replace(/\/$/, '');
+      var agent = document.getElementById('agentId').value.trim();
+      var tok = document.getElementById('shortJwt').value.trim();
+      var path = '/apps/' + encodeURIComponent(agent);
+      var url = new URL(base + path);
+      if (tok) url.searchParams.set('token', tok);
+      return url.toString();
+    }
+
+    document.getElementById('btnOpen').addEventListener('click', function () {
+      var url = buildWidgetUrl();
+      window.open(url, '_blank', 'noopener,noreferrer');
+      document.getElementById('out').textContent = url;
+    });
+
+    document.getElementById('btnAssign').addEventListener('click', function () {
+      var url = buildWidgetUrl();
+      console.log('Widget URL:', url);
+      document.getElementById('out').textContent = url;
+    });
+  </script>
+</body>
+</html>

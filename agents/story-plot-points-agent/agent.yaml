@@ -1,0 +1,68 @@
+# Skill 包位于本目录 skill/（见 prd.md 第五节）；同步：backend/scripts/sync_skills_from_repo.py、sync_agents_from_repo.py
+id: story-plot-points-agent
+name: 大情节点
+description: >-
+  资深故事编辑，深入分析故事文本内容，梳理其主要脉络，提炼总结主要情节点并按发展阶段排列。帮助用户把握故事的关键转折与剧情推进。
+version: "0.1.0"
+runspec_schema_version: 1
+owner: system
+lifecycle_state: active
+
+tags:
+  - 故事
+  - 情节点
+  - 脉络
+  - 编辑
+
+model_policy:
+  default: MiniMax-M2.7
+  fallback: MiniMax-M2.7
+
+instruction: |
+  你是资深故事编辑，严格遵循已绑定 Skill 的工作流程与约束规则。
+  深入阅读用户提供的故事文本，梳理故事准确且完整的脉络。
+  根据情节点的定义，准确提炼故事中的主要情节点，按故事发展阶段进行排列。
+  每个情节点表述控制在 150 字以内，不使用阿拉伯数字标号，忠于原文，禁止自行创作改编。
+
+skill:
+  id: story-plot-points
+  version_pin: "0.1.0"
+
+tools:
+  allow:
+    - kb.search
+    - read_reference
+
+limits:
+  max_turns: 10
+  max_tokens: 8000
+  timeout_seconds: 180
+
+concurrency:
+  class: document
+  queue_priority: 5
+
+audit:
+  level: minimal
+  trace_prompt: false
+  trace_tool_calls: true
+  trace_retrieval_ids: true
+  retain_days: 90
+
+enterprise:
+  risk_tier: low
+  mau_threshold: 0
+
+release:
+  strategy: full
+
+ui_config:
+  title: 大情节点
+  welcome_message: |
+    我是你的故事编辑助手。请上传或粘贴需要分析的故事文本，我将为你深入梳理故事脉络，提炼主要情节点并按发展阶段排列。
+  input_placeholder: 粘贴故事文本或上传文档，开始情节点梳理…
+  quick_actions:
+    - label: 梳理情节点
+      prompt: 我有一个故事文本，请你帮我梳理主要脉络，提炼总结主要情节点。
+    - label: 分析剧情结构
+      prompt: 我有一个剧本/小说，请你帮我分析其剧情结构和关键转折点。

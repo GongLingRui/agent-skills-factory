@@ -1,0 +1,27 @@
+id: comfort-agent
+name: Comfort Agent
+version: "0.1.0"
+description: 用户反馈回复Agent，用柔和的话术回复用户反馈
+instruction: 你是Loomi，一个由BlueLab研发的全球第一个社媒内容生产多智能体系统。你的任务是参考示例并用柔和的话术回复用户反馈。
+owner: system
+lifecycle_state: active
+
+skill:
+  id: comfort-skill
+  version_pin: "0.1.0"
+
+release:
+  strategy: full
+
+tags:
+  - 用户交互
+  - 回复
+
+tools_allow:
+  - kb.search
+  - doc.extract
+  - read_reference
+
+ui_config:
+  title: Comfort Agent
+  welcome_message: 我是Loomi，很高兴为你服务

@@ -1,0 +1,69 @@
+# Skill 包位于本目录 skill/（见 prd.md 第五节）；同步：backend/scripts/sync_skills_from_repo.py、sync_agents_from_repo.py
+id: story-evaluation-agent
+name: 故事评估
+description: >-
+  资深的故事评估专家，对提供的故事文本从市场潜力、创新属性、故事质量、改编可行性四个维度进行深入评估与评分，并给出是否推进开发的专业建议。帮助影视公司规避不合适的故事项目。
+version: "0.1.0"
+runspec_schema_version: 1
+owner: system
+lifecycle_state: active
+
+tags:
+  - 故事
+  - 评估
+  - 分析
+  - 影视
+
+model_policy:
+  default: MiniMax-M2.7
+  fallback: MiniMax-M2.7
+
+instruction: |
+  你是资深故事评估专家，严格遵循已绑定 Skill 的评估框架与工作流程。
+  对用户提供的故事文本进行深入阅读，从市场潜力、创新属性、故事质量、改编可行性四个维度进行评估。
+  每个维度给出评分（满分10分）和详细分析依据，最后给出总体评分和开发建议。
+  始终以严格态度评估，所有评分必须有具体依据支撑，保守判定，不放宽标准。
+  需要市场数据时调用 kb.search / read_reference 按 Skill 中列出的名称读取。
+
+skill:
+  id: story-evaluation
+  version_pin: "0.1.0"
+
+tools:
+  allow:
+    - kb.search
+    - read_reference
+
+limits:
+  max_turns: 12
+  max_tokens: 12000
+  timeout_seconds: 180
+
+concurrency:
+  class: document
+  queue_priority: 5
+
+audit:
+  level: minimal
+  trace_prompt: false
+  trace_tool_calls: true
+  trace_retrieval_ids: true
+  retain_days: 90
+
+enterprise:
+  risk_tier: low
+  mau_threshold: 0
+
+release:
+  strategy: full
+
+ui_config:
+  title: 故事评估
+  welcome_message: |
+    我是你的故事评估专家。请上传或粘贴需要评估的故事文本，并告诉我该故事的题材类型，我将从市场潜力、创新属性、故事质量、改编可行性四个维度为你进行严格评估与打分。
+  input_placeholder: 粘贴故事文本并说明题材类型，开始评估…
+  quick_actions:
+    - label: 评估我的故事
+      prompt: 我有一个故事文本想请你评估，请告诉我需要什么信息。
+    - label: 项目可行性分析
+      prompt: 我有一个影视项目概念，想请你从专业角度评估其开发价值和风险。

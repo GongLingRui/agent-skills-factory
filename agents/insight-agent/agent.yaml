@@ -1,0 +1,27 @@
+id: insight-agent
+name: Insight Agent
+version: "0.1.0"
+description: 洞察分析Agent，理解现象背后的原因、趋势、心理动机
+instruction: 结合你的knowhow和下面我的分析方法，来一步一步收束推导出好的洞察。
+owner: system
+lifecycle_state: active
+
+skill:
+  id: insight-skill
+  version_pin: "0.1.0"
+
+release:
+  strategy: full
+
+tags:
+  - 洞察
+  - 分析
+
+tools_allow:
+  - kb.search
+  - doc.extract
+  - read_reference
+
+ui_config:
+  title: Insight Agent
+  welcome_message: 我是洞察分析助手

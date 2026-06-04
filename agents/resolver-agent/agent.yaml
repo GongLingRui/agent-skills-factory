@@ -1,0 +1,26 @@
+id: resolver-agent
+name: Resolver Agent
+version: "0.1.0"
+description: 引用解析器Agent，解析用户指令中的@引用并替换为内容索引
+instruction: 你的任务是作为引用解析器。你会收到用户的自然语言指令和一份【内容索引】。你的唯一目标是：根据用户指令，将其中引用的内容替换为【内容索引】中对应的@标记。
+owner: system
+lifecycle_state: active
+
+skill:
+  id: resolver-skill
+  version_pin: "0.1.0"
+
+release:
+  strategy: full
+
+tags:
+  - 引用解析
+
+tools_allow:
+  - kb.search
+  - doc.extract
+  - read_reference
+
+ui_config:
+  title: Resolver Agent
+  welcome_message: 我是引用解析器

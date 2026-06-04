@@ -1,0 +1,88 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-factory"
+version = "0.1.0"
+description = "Agent App Factory API (P0)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "alembic>=1.13",
+    "asyncpg>=0.29",
+    "fastapi>=0.115",
+    "croniter>=2.0",
+    "httpx>=0.27",
+    "jsonschema>=4.23",
+    "minio>=7.2",
+    "prometheus-fastapi-instrumentator>=7.0",
+    "psycopg[binary]>=3.1",
+    "pydantic-settings>=2.5",
+    "pypdf>=5.0",
+    "PyJWT>=2.9",
+    "python-dateutil>=2.9",
+    "python-multipart>=0.0.9",
+    "PyYAML>=6.0",
+    "lark-oapi>=1.4.0",
+    "redis[hiredis]>=5.0",
+    "sqlalchemy[asyncio]>=2.0",
+    "uvicorn[standard]>=0.32",
+]
+
+[project.optional-dependencies]
+# 与下方 [dependency-groups].dev 对齐；便于 ``pip install -e ".[dev]"``。
+dev = [
+    "mypy>=1.11",
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "ruff>=0.7",
+]
+# OpenTelemetry: uv sync --extra observability
+observability = [
+    "opentelemetry-api>=1.27.0,<2",
+    "opentelemetry-sdk>=1.27.0,<2",
+    "opentelemetry-exporter-otlp-proto-http>=1.27.0,<2",
+    "opentelemetry-instrumentation-fastapi>=0.48b0,<1",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.11",
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "ruff>=0.7",
+]
+
+[tool.uv]
+default-groups = ["dev"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+# 使用 uv 时默认走清华镜像（可改 URL 或删除本节改用官方 PyPI）
+[[tool.uv.index]]
+name = "tsinghua"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+default = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+# 无需事先 ``pip install -e .`` 亦可收集测试（仍推荐 uv sync 做可编辑安装）。
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+extend-exclude = ["alembic"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_ignores = true

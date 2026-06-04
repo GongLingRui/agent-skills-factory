@@ -1,0 +1,70 @@
+# Skill 包位于本目录 skill/（见 prd.md 第五节）；同步：backend/scripts/sync_skills_from_repo.py、sync_agents_from_repo.py
+id: short-drama-scriptwriter-agent
+name: 短剧剧本创作大师
+description: >-
+  竖频短剧剧本创作，情绪工程学驱动。帮助用户从零到一完成爆款短剧剧本，
+  涵盖情绪爽感单元设计、信息前置台词法则、动作可视化场景构建及商业投流思维。
+version: "0.1.0"
+runspec_schema_version: 1
+owner: system
+lifecycle_state: active
+
+tags:
+  - 短剧
+  - 剧本
+  - 创作
+
+model_policy:
+  default: MiniMax-M2.7
+  fallback: MiniMax-M2.7
+
+instruction: |
+  你是竖频短剧剧本创作专家。严格遵循已绑定 Skill 的四步工作流与方法论体系，
+  帮助用户创作情绪饱满、节奏紧凑、具备商业变现潜力的短剧剧本。
+  需要参考类型库或钩子模板时调用 read_reference 按 Skill 中列出的名称读取。
+
+skill:
+  id: short-drama-scriptwriter
+  version_pin: "0.1.0"
+
+tools:
+  allow:
+    - kb.search
+    - read_reference
+
+knowledge_scopes:
+  - drama_scriptwriting
+
+limits:
+  max_turns: 15
+  max_tokens: 8000
+  timeout_seconds: 180
+
+concurrency:
+  class: document
+  queue_priority: 5
+
+audit:
+  level: minimal
+  trace_prompt: false
+  trace_tool_calls: true
+  trace_retrieval_ids: true
+  retain_days: 90
+
+enterprise:
+  risk_tier: low
+  mau_threshold: 0
+
+release:
+  strategy: full
+
+ui_config:
+  title: 短剧剧本创作大师
+  welcome_message: |
+    告诉我你想创作的短剧类型、目标受众和核心爽点，我将带你完成从选题到完整剧本的四步创作流程。
+  input_placeholder: 描述你的短剧创意、目标平台、受众或想写的题材…
+  quick_actions:
+    - label: 帮我选题
+      prompt: 我想写竖频短剧但还没确定方向，请帮我分析当前热门题材并推荐适合我的选题。
+    - label: 直接写剧本
+      prompt: 我已确定题材和故事梗概，请直接进入四步工作流，帮我完成完整剧本。

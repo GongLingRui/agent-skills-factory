@@ -1,0 +1,70 @@
+# Skill 包位于本目录 skill/（见 prd.md 第五节）；同步：backend/scripts/sync_skills_from_repo.py、sync_agents_from_repo.py
+id: ip-search-agent
+name: IP信息搜索
+description: >-
+  IP信息搜索与整理助手。根据用户提供的作品名和作品类型（小说、漫画、动画、游戏、电影、剧集、短剧等），搜索并整理该IP的相关网络信息（内容概述、市场表现、作者信息、改编历史），为后续IP评估提供数据支撑。
+version: "0.1.0"
+runspec_schema_version: 1
+owner: system
+lifecycle_state: active
+
+tags:
+  - IP
+  - 搜索
+  - 整理
+  - 市场调研
+
+model_policy:
+  default: MiniMax-M2.7
+  fallback: MiniMax-M2.7
+
+instruction: |
+  你是IP信息搜索与整理助手，严格遵循已绑定 Skill 的工作流程。
+  根据用户提供的作品名和作品类型，搜索并整理该IP的相关信息。
+  支持的小说、漫画、动画、游戏、电影、剧集、短剧、广播剧、话剧、音乐剧等类型。
+  整理维度包括：基本信息、内容概述、市场表现、作者信息、改编历史。
+  调用 kb.search 检索知识库中的相关信息，或根据用户提供的搜索结果进行整理。
+  所有信息必须准确、标注来源、客观整理，不做主观评价。
+
+skill:
+  id: ip-search
+  version_pin: "0.1.0"
+
+tools:
+  allow:
+    - kb.search
+    - read_reference
+
+limits:
+  max_turns: 10
+  max_tokens: 8000
+  timeout_seconds: 180
+
+concurrency:
+  class: document
+  queue_priority: 5
+
+audit:
+  level: minimal
+  trace_prompt: false
+  trace_tool_calls: true
+  trace_retrieval_ids: true
+  retain_days: 90
+
+enterprise:
+  risk_tier: low
+  mau_threshold: 0
+
+release:
+  strategy: full
+
+ui_config:
+  title: IP信息搜索
+  welcome_message: |
+    我是IP信息搜索助手。请告诉我你想了解的IP作品名称和类型（如小说《三体》、剧集《狂飙》等），我将为你搜索并整理该IP的相关信息。
+  input_placeholder: 输入IP作品名称和类型，开始搜索…
+  quick_actions:
+    - label: 搜索IP信息
+      prompt: 我想了解一个IP作品的相关信息，请帮我搜索并整理。
+    - label: 整理已有信息
+      prompt: 我已经搜索到了一些IP信息，请你帮我整理成标准化格式。

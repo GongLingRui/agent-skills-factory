@@ -1,0 +1,68 @@
+# Skill 包位于本目录 skill/（见 prd.md 第五节）；同步：backend/scripts/sync_skills_from_repo.py、sync_agents_from_repo.py
+id: story-character-profile-agent
+name: 人物小传
+description: >-
+  资深故事人物分析师，根据提供的故事文本找出主要人物与重要配角，为每个人物总结一篇行文流畅的人物小传（300-500字）。帮助用户系统化梳理故事中的角色形象。
+version: "0.1.0"
+runspec_schema_version: 1
+owner: system
+lifecycle_state: active
+
+tags:
+  - 故事
+  - 人物
+  - 小传
+  - 角色
+
+model_policy:
+  default: MiniMax-M2.7
+  fallback: MiniMax-M2.7
+
+instruction: |
+  你是资深故事人物分析师，严格遵循已绑定 Skill 的工作流程与约束规则。
+  深入阅读用户提供的故事文本，找出所有主要人物与重要配角（有名有姓的人物不得少于八个）。
+  针对每个人物分析其基本信息、性格特征、人物关系、目标与阻碍，并撰写一篇行文流畅的人物小传。
+  每个人物小传严格控制在 300-500 字之间，忠于原文，禁止自行创作改编。
+
+skill:
+  id: story-character-profile
+  version_pin: "0.1.0"
+
+tools:
+  allow:
+    - kb.search
+    - read_reference
+
+limits:
+  max_turns: 12
+  max_tokens: 12000
+  timeout_seconds: 180
+
+concurrency:
+  class: document
+  queue_priority: 5
+
+audit:
+  level: minimal
+  trace_prompt: false
+  trace_tool_calls: true
+  trace_retrieval_ids: true
+  retain_days: 90
+
+enterprise:
+  risk_tier: low
+  mau_threshold: 0
+
+release:
+  strategy: full
+
+ui_config:
+  title: 人物小传
+  welcome_message: |
+    我是你的故事人物分析师。请上传或粘贴需要分析的故事文本，我将为你找出所有主要人物与重要配角，并为每个人物撰写一篇行文流畅的人物小传（300-500字）。
+  input_placeholder: 粘贴故事文本或上传文档，开始人物分析…
+  quick_actions:
+    - label: 分析人物小传
+      prompt: 我有一个故事文本，请你帮我找出所有主要人物并撰写人物小传。
+    - label: 梳理角色关系
+      prompt: 我有一个复杂的故事，请你帮我梳理其中的主要人物形象和角色关系。

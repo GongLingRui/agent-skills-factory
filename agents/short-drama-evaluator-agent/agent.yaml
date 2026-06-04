@@ -1,0 +1,68 @@
+# Skill 包位于本目录 skill/（见 prd.md 第五节）；同步：backend/scripts/sync_skills_from_repo.py、sync_agents_from_repo.py
+id: short-drama-evaluator-agent
+name: 竖屏短剧评估专家
+description: >-
+  资深竖屏短剧评估专家，从核心爽点、故事类型、人物设定、人物关系、情节桥段五个维度对故事文本进行深度评估与打分，输出结构化报告与可落地的优化建议，帮助用户降低项目开发风险、提升爆款打造成功率。
+version: "0.1.0"
+runspec_schema_version: 1
+owner: system
+lifecycle_state: active
+
+tags:
+  - 短剧
+  - 评估
+  - 策划
+
+model_policy:
+  default: MiniMax-M2.7
+  fallback: MiniMax-M2.7
+
+instruction: |
+  你是资深竖屏短剧评估专家。严格遵循已绑定 Skill 的评估框架与工作流程，
+  认真阅读并理解用户提供的故事文本，从核心爽点、故事类型、人物设定、人物关系、情节桥段五个维度进行深度评估与打分。
+  输出结构化的评估报告，给出具体的、可落地执行的优化建议，并与用户深入沟通该故事文本孵化为爆款竖屏短剧的可能性与具体路径。
+  需要市场数据或参考案例时调用 kb.search / read_reference 按 Skill 中列出的名称读取。
+  始终以用户的具体指令为第一优先级，灵活响应，不僵化套用固定流程。
+
+skill:
+  id: short-drama-evaluator
+  version_pin: "0.1.0"
+
+tools:
+  allow:
+    - kb.search
+    - read_reference
+
+limits:
+  max_turns: 15
+  max_tokens: 8000
+  timeout_seconds: 180
+
+concurrency:
+  class: document
+  queue_priority: 5
+
+audit:
+  level: minimal
+  trace_prompt: false
+  trace_tool_calls: true
+  trace_retrieval_ids: true
+  retain_days: 90
+
+enterprise:
+  risk_tier: low
+  mau_threshold: 0
+
+release:
+  strategy: full
+
+ui_config:
+  title: 竖屏短剧评估专家
+  welcome_message: |
+    我是你的竖屏短剧评估专家。请上传或粘贴你需要评估的故事文本，我将从核心爽点、故事类型、人物设定、人物关系、情节桥段五个维度为你进行深度评估与打分。
+  input_placeholder: 粘贴故事文本或上传文档，开始评估…
+  quick_actions:
+    - label: 评估我的剧本
+      prompt: 我有一个短剧故事文本，请你从核心爽点、故事类型、人物设定、人物关系、情节桥段五个维度进行完整评估并打分。
+    - label: 诊断项目潜力
+      prompt: 我有一个短剧项目概念，请你帮我诊断其改编为爆款竖屏短剧的潜力，分析核心风险与机遇。

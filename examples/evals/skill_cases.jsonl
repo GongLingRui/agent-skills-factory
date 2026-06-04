@@ -1,0 +1,3 @@
+# 仓库级 CI / 文档样例：对齐 docs/04 评测集单行 schema（非 Skill 包本体）。
+# validate_eval_jsonl.py 会校验下列 JSON 行；run_skill_eval.py --dry-run 做加载冒烟。
+{"id": "repo_ci_smoke_001", "name": "仓库 CI 样例用例", "input": {"message": "Reply with the single word: ok."}, "min_score": 0.0}

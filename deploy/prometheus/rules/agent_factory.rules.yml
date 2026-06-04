@@ -1,0 +1,48 @@
+# Sample Prometheus recording + alerting rules for Agent Factory.
+# Tune thresholds per environment; scrape must include /metrics from core (docs/32).
+#
+# Prometheus ≥ 2.x rule file format; load via rule_files or Operator PrometheusRule.
+
+groups:
+  - name: agent_factory.recording
+    interval: 30s
+    rules:
+      - record: af:model_queue_depth:sum
+        expr: sum(af_model_queue_length)
+      - record: af:model_inflight:sum
+        expr: sum(af_model_inflight)
+
+  - name: agent_factory.alerts
+    rules:
+      - alert: AgentFactoryDegradationElevated
+        expr: af_degradation_level >= 3
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Global degradation level is elevated
+          description: >-
+            af_degradation_level={{ $value }} for 5m (threshold 3). Check model
+            queue, Tool circuit breaker, and ops hold.
+
+      - alert: AgentFactoryDocParseBacklog
+        expr: af_doc_parse_stream_messages > 200
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: Document parse Redis Stream backlog is high
+          description: >-
+            mq:doc_jobs length={{ $value }}. Scale doc_parser_worker or inspect
+            stuck consumers.
+
+      - alert: AgentFactoryModelQueueDeep
+        expr: sum(af_model_queue_length) > 100
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: Model request queues are deep
+          description: >-
+            Sum of ZSET depths={{ $value }}. Check ModelGateway capacity and
+            concurrency_class fairness (docs/10).

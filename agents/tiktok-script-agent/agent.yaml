@@ -1,0 +1,28 @@
+id: tiktok-script-agent
+name: Tiktok Script Agent
+version: "0.1.0"
+description: 抖音口播稿创作Agent，撰写具体的抖音口播稿
+instruction: 理解用户意图和期待，产出1篇抖音口播稿。
+owner: system
+lifecycle_state: active
+
+skill:
+  id: tiktok-script-skill
+  version_pin: "0.1.0"
+
+release:
+  strategy: full
+
+tags:
+  - 抖音
+  - 口播稿
+  - 内容创作
+
+tools_allow:
+  - kb.search
+  - doc.extract
+  - read_reference
+
+ui_config:
+  title: 抖音口播Agent
+  welcome_message: 我是抖音口播写作助手

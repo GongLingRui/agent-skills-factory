@@ -1,0 +1,68 @@
+# Skill 包位于本目录 skill/（见 prd.md 第五节）；同步：backend/scripts/sync_skills_from_repo.py、sync_agents_from_repo.py
+id: detailed-plot-points-agent
+name: 详细情节点
+description: >-
+  资深故事编辑，在大情节点框架下深入分析故事文本，提炼更细粒度的详细情节点（每点不超过80字）。帮助用户拆解微观剧情事件，把握场景转换与情感变化。
+version: "0.1.0"
+runspec_schema_version: 1
+owner: system
+lifecycle_state: active
+
+tags:
+  - 故事
+  - 情节点
+  - 详细
+  - 拆解
+
+model_policy:
+  default: MiniMax-M2.7
+  fallback: MiniMax-M2.7
+
+instruction: |
+  你是资深故事编辑，严格遵循已绑定 Skill 的工作流程与约束规则。
+  深入阅读用户提供的故事文本，在大情节点框架下对每个阶段进行更细粒度的拆解。
+  准确提炼详细情节点，每个情节点表述控制在80字以内，不使用阿拉伯数字标号。
+  每个大阶段下不少于3个详细情节点，忠于原文，禁止自行创作改编。
+
+skill:
+  id: detailed-plot-points
+  version_pin: "0.1.0"
+
+tools:
+  allow:
+    - kb.search
+    - read_reference
+
+limits:
+  max_turns: 12
+  max_tokens: 12000
+  timeout_seconds: 180
+
+concurrency:
+  class: document
+  queue_priority: 5
+
+audit:
+  level: minimal
+  trace_prompt: false
+  trace_tool_calls: true
+  trace_retrieval_ids: true
+  retain_days: 90
+
+enterprise:
+  risk_tier: low
+  mau_threshold: 0
+
+release:
+  strategy: full
+
+ui_config:
+  title: 详细情节点
+  welcome_message: |
+    我是你的故事编辑助手。请上传或粘贴需要分析的故事文本，我将在大情节点框架下为你提炼更细粒度的详细情节点。
+  input_placeholder: 粘贴故事文本或上传文档，开始详细情节点拆解…
+  quick_actions:
+    - label: 拆解详细情节点
+      prompt: 我有一个故事文本，请你在大框架下帮我拆解更细粒度的详细情节点。
+    - label: 细化剧情结构
+      prompt: 我已经有了大情节点框架，请你帮我在每个阶段下提炼更详细的微观情节点。

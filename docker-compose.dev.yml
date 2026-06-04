@@ -1,0 +1,8 @@
+# 开发依赖栈 — 与根目录 `docker-compose.yml` 相同。
+# 供文档与脚本使用：`docker compose -f docker-compose.dev.yml up -d`
+#
+# 需要 Compose V2.20+（支持 `include`）。版本过低时直接用：
+#   docker compose -f docker-compose.yml up -d
+
+include:
+  - path: docker-compose.yml

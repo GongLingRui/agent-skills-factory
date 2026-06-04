@@ -1,0 +1,27 @@
+id: profile-agent
+name: Profile Agent
+version: "0.1.0"
+description: 用户画像Agent，刻画目标人群特征、需求、行为模式
+instruction: 首先理解用户研究场景，从性别、阶层、性格、人生状态等等你能想到的任何角度，为用户寻找受众画像
+owner: system
+lifecycle_state: active
+
+skill:
+  id: profile-skill
+  version_pin: "0.1.0"
+
+release:
+  strategy: full
+
+tags:
+  - 用户画像
+  - 受众分析
+
+tools_allow:
+  - kb.search
+  - doc.extract
+  - read_reference
+
+ui_config:
+  title: Profile Agent
+  welcome_message: 我是用户画像助手
