@@ -1,6 +1,71 @@
 # Agent App Factory
 
 > 企业内网 Agent 应用工厂：声明式 `agent.yaml` + Skill → RunSpec → Runner / Tool Gateway
+>
+
+# AI应用库
+
+<img width="1109" height="782" alt="image" src="https://github.com/user-attachments/assets/8d65789e-16b6-45d0-9172-2e0d71998c8b" />
+
+<img width="1150" height="766" alt="image" src="https://github.com/user-attachments/assets/ec1cd1f5-b93e-4303-b060-f1c311b982f2" />
+## 快速创建AI应用
+
+<img width="951" height="746" alt="image" src="https://github.com/user-attachments/assets/3118d727-75b5-42bc-b284-123092255c90" />
+
+<img width="1156" height="776" alt="image" src="https://github.com/user-attachments/assets/eac292e3-427e-4abc-b0dc-5a72c533bf60" />
+
+# 管理员运营台
+
+## Agents注册中心
+<img width="1368" height="768" alt="image" src="https://github.com/user-attachments/assets/a6fbe105-1838-4766-88db-b70a74644c20" />
+
+## Skills目录
+
+<img width="1393" height="775" alt="image" src="https://github.com/user-attachments/assets/1cadfcba-b55d-48ae-84cb-6ce7c9f6ad2f" />
+
+## Tools目录
+
+<img width="1386" height="773" alt="image" src="https://github.com/user-attachments/assets/53fa96a4-6176-45f0-a4a2-2e7810bc4723" />
+
+## 策略管理
+
+<img width="1375" height="772" alt="image" src="https://github.com/user-attachments/assets/0bd7b51f-28ca-4f77-b0a5-3f7f1895fd7f" />
+
+## 审计查询
+
+<img width="1374" height="773" alt="image" src="https://github.com/user-attachments/assets/c27d20df-95d5-4e6e-90f5-b5266fbe3d5b" />
+
+
+## 会话轨迹
+
+<img width="1382" height="774" alt="image" src="https://github.com/user-attachments/assets/8e6a84d4-4200-43d7-bb9e-04dcd3b870dd" />
+
+## 降级控制
+
+<img width="1382" height="774" alt="image" src="https://github.com/user-attachments/assets/16544701-1a24-4fce-9679-98c5058a2e98" />
+
+# Agents对话
+## 剧本评估和分析 Agent
+
+<img width="1302" height="778" alt="image" src="https://github.com/user-attachments/assets/4037ba1b-0f61-4a41-a0cb-413176c75775" />
+
+## Ai生ppt agent
+<img width="1042" height="646" alt="image" src="https://github.com/user-attachments/assets/210220e5-f060-4bb8-b5f8-afaa19af11dd" />
+
+<img width="1190" height="774" alt="image" src="https://github.com/user-attachments/assets/db3160bf-084a-4e3e-a6b1-cb7fbcd5b549" />
+
+<img width="993" height="688" alt="image" src="https://github.com/user-attachments/assets/9bab2306-0d0c-4b56-8cf9-4411ea7efa5b" />
+
+# 飞书集成
+
+<img width="726" height="831" alt="image" src="https://github.com/user-attachments/assets/2cf1817b-98a0-45af-88bb-9db32e306afe" />
+
+<img width="724" height="747" alt="image" src="https://github.com/user-attachments/assets/15f5089e-9176-4c83-95fb-b6f75eb622a6" />
+
+<img width="752" height="837" alt="image" src="https://github.com/user-attachments/assets/dfa26ca3-5cbb-49fa-b8c2-ee0611829662" />
+
+<img width="724" height="841" alt="image" src="https://github.com/user-attachments/assets/da80267c-aca3-49f7-9203-347c6eb029a7" />
+
 
 ## 项目概述
 
